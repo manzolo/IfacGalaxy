@@ -3,6 +3,7 @@ const DICT = {
   subtitle: { it: "osservatorio esoplanetario", en: "exoplanet observatory" },
   searchPlaceholder: { it: "Cerca stella o pianeta…", en: "Search star or planet…" },
   backGalaxy: { it: "⟲ Galassia", en: "⟲ Galaxy" },
+  backHome: { it: "☉ Sole", en: "☉ Sun" },
   timeSpeed: { it: "velocità tempo", en: "time speed" },
   epoch: { it: "data", en: "date" },
   now: { it: "oggi", en: "today" },

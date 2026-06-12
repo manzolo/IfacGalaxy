@@ -79,6 +79,7 @@ function setContext() {
     ? `${t("system")}: <b>${focused.isSun ? t("solarSystem") : focused.label}</b> · ${
         focused.isSun ? "" : `${(focused.distPc * LY_PER_PC).toFixed(0)} ${t("ly")}`}`
     : "";
+  document.getElementById("btn-home").hidden = !focused || focused.isSun;
 }
 
 function setURL() {
@@ -295,6 +296,7 @@ function setupUI() {
   search.setSystems(systems);
 
   $("btn-galaxy").addEventListener("click", backToGalaxy);
+  $("btn-home").addEventListener("click", () => focusSystem(systems[0], { card: false }));
   const sources = $("sources-dialog");
   $("open-sources").addEventListener("click", () => sources.showModal());
   $("close-sources").addEventListener("click", () => sources.close());
@@ -400,12 +402,24 @@ function collectLabels() {
   const items = [];
   const camDist = rig.distance;
   const wp = worldGroup.position;
+  // casa è sempre indicata: il marker del Sole sostituisce la sua etichetta ambra
+  const sunMarker = focused && !focused.isSun;
+  if (sunMarker) {
+    items.push({
+      pos: new THREE.Vector3(wp.x, wp.y, wp.z),
+      text: rig.mode === "pov"
+        ? `${t("sun")} · mag ${sunMagnitudeFrom(focused.distPc).toFixed(1)}`
+        : `${t("sun")} · ${(focused.distPc * LY_PER_PC).toFixed(0)} ${t("ly")}`,
+      cls: "sun-marker",
+      edge: true,
+    });
+  }
   if (settings.names && focused && (camDist < systemView.span * 300 || rig.mode === "pov")) {
     items.push(...systemView.labelAnchors(getLang()));
   }
   if (settings.names && camDist > 5e4) {
     for (const sys of galaxy.systems) {
-      if (!sys.curated || sys === focused) continue;
+      if (!sys.curated || sys === focused || (sys.isSun && sunMarker)) continue;
       items.push({
         pos: new THREE.Vector3(sys.world.x + wp.x, sys.world.y + wp.y, sys.world.z + wp.z),
         text: sys.isSun ? t("sun") : sys.label,
@@ -418,14 +432,6 @@ function collectLabels() {
     for (const a of constAnchors) {
       items.push({ pos: _tmp.copy(a.pos).add(wp).clone(), text: a.name, cls: "const" });
     }
-  }
-  if (rig.mode === "pov" && focused && !focused.isSun) {
-    const mag = sunMagnitudeFrom(focused.distPc);
-    items.push({
-      pos: new THREE.Vector3(wp.x, wp.y, wp.z),
-      text: `${t("sun")} · mag ${mag.toFixed(1)}`,
-      cls: "sun-marker",
-    });
   }
   return items;
 }

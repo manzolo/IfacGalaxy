@@ -32,6 +32,11 @@ input, output { font-family: inherit; }
 .lbl.const { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; opacity: 0.7; }
 .lbl.sun-marker { color: var(--amber); font-size: 10px; }
 .lbl.sun-marker::before { content: "◇ "; }
+/* indicatore agganciato al bordo: il punto è fuori dallo schermo, in quella direzione */
+.lbl.edge {
+  opacity: 0.75; padding: 2px 7px; border-radius: 10px;
+  border: 1px solid rgba(255,179,71,0.35); background: rgba(4,6,13,0.55);
+}
 
 /* ---- barra superiore ---- */
 #topbar {
