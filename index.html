@@ -98,6 +98,58 @@
 
 <div id="hint" data-i18n="hint">trascina per ruotare · rotella per zoom · clic su un corpo per la scheda</div>
 
+<button id="open-sources" class="open-sources" type="button" data-i18n="sourcesBtn">Fonti · licenze</button>
+<dialog id="sources-dialog" class="sources-dialog">
+  <div class="sources-head">
+    <h2 data-i18n="sourcesTitle">Fonti, crediti e licenze</h2>
+    <button id="close-sources" type="button" title="Chiudi" aria-label="chiudi">✕</button>
+  </div>
+  <div class="sources-body">
+    <section data-lang-content="it">
+      <h3>Crediti</h3>
+      <p>Da un'idea di <strong>Massimo Bianchini</strong>, con l'aiuto di <strong>Moreno Comelli</strong>. Realizzazione tecnica: <strong>Andrea Manzi</strong> (<a href="https://github.com/manzolo" target="_blank" rel="noopener noreferrer">manzolo</a>). Erede galattico di <a href="https://github.com/manzolo/SistemaSolare" target="_blank" rel="noopener noreferrer">SistemaSolare</a>.</p>
+      <h3>Progetto indipendente</h3>
+      <p>Questo è un progetto educativo indipendente. Non è affiliato, approvato o sponsorizzato da NASA, JPL, Caltech, ESA, IAU o dalle missioni citate. Nomi e marchi appartengono ai rispettivi titolari.</p>
+      <h3>Dati astronomici</h3>
+      <ul>
+        <li>Esopianeti e stelle ospiti: <a href="https://exoplanetarchive.ipac.caltech.edu" target="_blank" rel="noopener noreferrer">NASA Exoplanet Archive</a> (tabella pscomppars). <em>This research has made use of the NASA Exoplanet Archive, which is operated by the California Institute of Technology, under contract with the National Aeronautics and Space Administration under the Exoplanet Exploration Program.</em></li>
+        <li>Stelle di sfondo: <a href="https://github.com/astronexus/HYG-Database" target="_blank" rel="noopener noreferrer">HYG Database v4.1</a> di David Nash (CC BY 4.0).</li>
+        <li>Costellazioni: <a href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noopener noreferrer">d3-celestial</a> di Olaf Frohn (BSD-3), da dati del progetto <a href="https://stellarium.org" target="_blank" rel="noopener noreferrer">Stellarium</a>.</li>
+        <li>Posizioni dei pianeti del Sistema Solare: <a href="https://ssd.jpl.nasa.gov/planets/approx_pos.html" target="_blank" rel="noopener noreferrer">NASA/JPL Solar System Dynamics</a>.</li>
+      </ul>
+      <h3>Accuratezza</h3>
+      <p>Le simulazioni sono educative e approssimate, non effemeridi scientifiche. Le dimensioni di stelle e pianeti sono esagerate per leggibilità; dove eccentricità, inclinazione o fase orbitale non sono misurate, l'orbita è mostrata come stimata e segnalata nella scheda con un'etichetta dedicata.</p>
+      <h3>Font e software</h3>
+      <p>Michroma e IBM Plex Mono via Google Fonts (Open Font License). Rendering con <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">Three.js</a> (MIT).</p>
+      <h3>Privacy</h3>
+      <p>Il progetto non integra analytics, pubblicità o cookie propri: salva nel browser soltanto la lingua scelta. I font sono caricati dai server di Google, ai quali il browser invia una normale richiesta di rete soggetta alla rispettiva informativa.</p>
+      <h3>Licenza</h3>
+      <p>La licenza MIT del repository copre il codice originale e non concede diritti sui materiali di terzi. L'elenco completo è in <a href="https://github.com/manzolo/IfacGalaxy/blob/main/NOTICE.md" target="_blank" rel="noopener noreferrer">NOTICE.md</a>.</p>
+    </section>
+    <section data-lang-content="en" hidden>
+      <h3>Credits</h3>
+      <p>From an idea by <strong>Massimo Bianchini</strong>, with the help of <strong>Moreno Comelli</strong>. Technical implementation: <strong>Andrea Manzi</strong> (<a href="https://github.com/manzolo" target="_blank" rel="noopener noreferrer">manzolo</a>). The galactic heir of <a href="https://github.com/manzolo/SistemaSolare" target="_blank" rel="noopener noreferrer">SistemaSolare</a>.</p>
+      <h3>Independent project</h3>
+      <p>This is an independent educational project. It is not affiliated with, endorsed by, or sponsored by NASA, JPL, Caltech, ESA, IAU, or any mission mentioned. Names and trademarks belong to their respective owners.</p>
+      <h3>Astronomical data</h3>
+      <ul>
+        <li>Exoplanets and host stars: <a href="https://exoplanetarchive.ipac.caltech.edu" target="_blank" rel="noopener noreferrer">NASA Exoplanet Archive</a> (pscomppars table). <em>This research has made use of the NASA Exoplanet Archive, which is operated by the California Institute of Technology, under contract with the National Aeronautics and Space Administration under the Exoplanet Exploration Program.</em></li>
+        <li>Background stars: <a href="https://github.com/astronexus/HYG-Database" target="_blank" rel="noopener noreferrer">HYG Database v4.1</a> by David Nash (CC BY 4.0).</li>
+        <li>Constellations: <a href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noopener noreferrer">d3-celestial</a> by Olaf Frohn (BSD-3), from <a href="https://stellarium.org" target="_blank" rel="noopener noreferrer">Stellarium</a> project data.</li>
+        <li>Solar System planet positions: <a href="https://ssd.jpl.nasa.gov/planets/approx_pos.html" target="_blank" rel="noopener noreferrer">NASA/JPL Solar System Dynamics</a>.</li>
+      </ul>
+      <h3>Accuracy</h3>
+      <p>Simulations are educational approximations, not scientific ephemerides. Star and planet sizes are exaggerated for readability; where eccentricity, inclination, or orbital phase are not measured, the orbit is shown as estimated and flagged on its card with a dedicated badge.</p>
+      <h3>Fonts and software</h3>
+      <p>Michroma and IBM Plex Mono via Google Fonts (Open Font License). Rendered with <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">Three.js</a> (MIT).</p>
+      <h3>Privacy</h3>
+      <p>The project includes no analytics, advertising, or first-party cookies: it stores only the selected language in the browser. Fonts are loaded from Google servers, to which the browser sends a normal network request subject to their privacy notice.</p>
+      <h3>License</h3>
+      <p>The repository's MIT license covers original code and does not grant rights to third-party materials. See <a href="https://github.com/manzolo/IfacGalaxy/blob/main/NOTICE.md" target="_blank" rel="noopener noreferrer">NOTICE.md</a> for the complete list.</p>
+    </section>
+  </div>
+</dialog>
+
 <script type="module" src="/src/main.js"></script>
 </body>
 </html>

@@ -15,6 +15,8 @@ const DICT = {
   constNames: { it: "nomi costellazioni", en: "constellation names" },
   fullCatalog: { it: "catalogo completo", en: "full catalog" },
   exitPov: { it: "esci dalla vista", en: "exit view" },
+  sourcesBtn: { it: "Fonti · licenze", en: "Sources · licenses" },
+  sourcesTitle: { it: "Fonti, crediti e licenze", en: "Sources, credits and licenses" },
   filterMethod: { it: "metodo scoperta", en: "discovery method" },
   filterDist: { it: "distanza max", en: "max distance" },
   allMethods: { it: "tutti", en: "all" },
@@ -100,6 +102,7 @@ export function onLangChange(fn) { listeners.push(fn); }
 export function applyStatic() {
   for (const el of document.querySelectorAll("[data-i18n]")) el.textContent = t(el.dataset.i18n);
   for (const el of document.querySelectorAll("[data-i18n-ph]")) el.placeholder = t(el.dataset.i18nPh);
+  for (const el of document.querySelectorAll("[data-lang-content]")) el.hidden = el.dataset.langContent !== lang;
   document.getElementById("lang-it").classList.toggle("active", lang === "it");
   document.getElementById("lang-en").classList.toggle("active", lang === "en");
 }

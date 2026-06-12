@@ -257,6 +257,12 @@ function setupUI() {
   search.setSystems(systems);
 
   $("btn-galaxy").addEventListener("click", backToGalaxy);
+  const sources = $("sources-dialog");
+  $("open-sources").addEventListener("click", () => sources.showModal());
+  $("close-sources").addEventListener("click", () => sources.close());
+  sources.addEventListener("click", (e) => {
+    if (e.target === sources) sources.close();
+  });
   $("card-close").addEventListener("click", hideCard);
   $("btn-pov-exit").addEventListener("click", () => exitPov(true));
   $("lang-it").addEventListener("click", () => setLang("it"));

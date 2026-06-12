@@ -69,9 +69,29 @@ Realizzazione tecnica: **Andrea Manzi** ([manzolo](https://github.com/manzolo)).
 
 ## 📚 Fonti dati
 
-Vedi [NOTICE.md](NOTICE.md). In sintesi: NASA Exoplanet Archive (pscomppars),
-HYG Database v4.1 (CC BY 4.0), d3-celestial / Stellarium (BSD-3), elementi
-orbitali planetari JPL.
+- **Esopianeti e stelle ospiti**: [NASA Exoplanet Archive](https://exoplanetarchive.ipac.caltech.edu)
+  (tabella `pscomppars`). *This research has made use of the NASA Exoplanet
+  Archive, which is operated by the California Institute of Technology, under
+  contract with the National Aeronautics and Space Administration under the
+  Exoplanet Exploration Program.*
+- **Stelle di sfondo**: [HYG Database v4.1](https://github.com/astronexus/HYG-Database)
+  di David Nash (CC BY 4.0).
+- **Costellazioni**: [d3-celestial](https://github.com/ofrohn/d3-celestial) di
+  Olaf Frohn (BSD-3), da dati del progetto [Stellarium](https://stellarium.org).
+- **Pianeti del Sistema Solare**: elementi orbitali approssimati
+  [NASA/JPL Solar System Dynamics](https://ssd.jpl.nasa.gov/planets/approx_pos.html).
+
+L'elenco completo con le licenze è in [NOTICE.md](NOTICE.md).
+
+## ⚠️ Disclaimer
+
+Progetto educativo indipendente: non è affiliato, approvato o sponsorizzato da
+NASA, JPL, Caltech, ESA, IAU o dalle missioni citate. Le simulazioni sono
+approssimate e divulgative, **non effemeridi scientifiche**: le dimensioni di
+stelle e pianeti sono esagerate per leggibilità e, dove eccentricità,
+inclinazione o fase orbitale non sono misurate, l'orbita è mostrata come
+stimata e segnalata nella scheda. Nessun analytics, nessuna pubblicità, nessun
+cookie proprio: nel browser viene salvata solo la lingua scelta.
 
 ## Licenza
 

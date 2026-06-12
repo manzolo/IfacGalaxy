@@ -68,9 +68,29 @@ Technical implementation: **Andrea Manzi** ([manzolo](https://github.com/manzolo
 
 ## 📚 Data sources
 
-See [NOTICE.md](NOTICE.md). In short: NASA Exoplanet Archive (pscomppars), HYG
-Database v4.1 (CC BY 4.0), d3-celestial / Stellarium (BSD-3), JPL planetary
-orbital elements.
+- **Exoplanets and host stars**: [NASA Exoplanet Archive](https://exoplanetarchive.ipac.caltech.edu)
+  (`pscomppars` table). *This research has made use of the NASA Exoplanet
+  Archive, which is operated by the California Institute of Technology, under
+  contract with the National Aeronautics and Space Administration under the
+  Exoplanet Exploration Program.*
+- **Background stars**: [HYG Database v4.1](https://github.com/astronexus/HYG-Database)
+  by David Nash (CC BY 4.0).
+- **Constellations**: [d3-celestial](https://github.com/ofrohn/d3-celestial) by
+  Olaf Frohn (BSD-3), from [Stellarium](https://stellarium.org) project data.
+- **Solar System planets**: approximate orbital elements from
+  [NASA/JPL Solar System Dynamics](https://ssd.jpl.nasa.gov/planets/approx_pos.html).
+
+The complete list with licenses is in [NOTICE.md](NOTICE.md).
+
+## ⚠️ Disclaimer
+
+An independent educational project: not affiliated with, endorsed by, or
+sponsored by NASA, JPL, Caltech, ESA, IAU, or any mission mentioned. The
+simulations are approximate and educational, **not scientific ephemerides**:
+star and planet sizes are exaggerated for readability and, where eccentricity,
+inclination, or orbital phase are not measured, the orbit is shown as estimated
+and flagged on its card. No analytics, no ads, no first-party cookies: only the
+selected language is stored in the browser.
 
 ## License
 
