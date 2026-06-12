@@ -222,7 +222,9 @@ input[type="date"] {
   /* sotto la barra superiore: su mobile occupa tre righe (~150px) */
   #hud-context { top: 156px; }
   #pov-exit { top: 186px; width: calc(100vw - 24px); }
-  #infocard { top: auto; bottom: 70px; max-height: 46vh; }
+  #infocard { top: auto; bottom: 52px; max-height: 56vh; }
+  /* con una scheda aperta lo spazio è poco: la dashboard si ritira */
+  #infocard:not([hidden]) ~ #dashboard { display: none; }
   /* la dashboard aperta lascia libera la fascia in basso per Fonti·licenze */
   #dashboard { right: 12px; bottom: 52px; }
   /* da chiusa torna in basso come chip compatto, accanto a Fonti·licenze */
