@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>IfacGalaxy — Esopianeti 3D</title>
+<meta name="description" content="Simulatore 3D interattivo di esopianeti: sistemi reali dal NASA Exoplanet Archive, costellazioni, orbite e viste da altri mondi.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='6' fill='%23ffb347'/%3E%3Cellipse cx='16' cy='16' rx='14' ry='5' fill='none' stroke='%236fe3ff' stroke-width='1.5' transform='rotate(-20 16 16)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+<canvas id="scene"></canvas>
+<div id="labels" aria-hidden="true"></div>
+
+<header id="topbar">
+  <div id="brand">
+    <h1>IFAC<span>GALAXY</span></h1>
+    <p id="subtitle" data-i18n="subtitle">osservatorio esoplanetario</p>
+  </div>
+  <div id="searchbox">
+    <input id="search" type="search" autocomplete="off" spellcheck="false"
+           data-i18n-ph="searchPlaceholder" placeholder="Cerca stella o pianeta…">
+    <div id="search-results" hidden></div>
+  </div>
+  <div id="topright">
+    <button id="btn-galaxy" class="chip" data-i18n="backGalaxy" title="Vista galattica">⟲ Galassia</button>
+    <button id="lang-it" class="flag" title="Italiano">🇮🇹</button>
+    <button id="lang-en" class="flag" title="English">🇬🇧</button>
+  </div>
+</header>
+
+<aside id="infocard" hidden>
+  <button id="card-close" aria-label="chiudi">×</button>
+  <div id="card-body"></div>
+</aside>
+
+<div id="hud-context"></div>
+
+<footer id="dashboard">
+  <button id="dash-toggle" aria-label="pannello">▾</button>
+  <div id="dash-content">
+    <section class="dash-group" id="time-group">
+      <button id="btn-pause" class="chip" title="pausa">⏸</button>
+      <label class="slider-row">
+        <span data-i18n="timeSpeed">velocità tempo</span>
+        <input id="time-speed" type="range" min="-1" max="5" step="0.05" value="0">
+        <output id="time-speed-out">1 g/s</output>
+      </label>
+      <div class="slider-row">
+        <span data-i18n="epoch">data</span>
+        <input id="epoch" type="date">
+        <button id="btn-now" class="chip" data-i18n="now">oggi</button>
+      </div>
+      <output id="sim-date"></output>
+    </section>
+    <section class="dash-group">
+      <label class="slider-row">
+        <span data-i18n="sizeScale">scala dimensioni</span>
+        <input id="size-scale" type="range" min="0.4" max="3" step="0.05" value="1">
+      </label>
+      <label class="slider-row">
+        <span data-i18n="distScale">compressione orbite</span>
+        <input id="dist-scale" type="range" min="0.4" max="1" step="0.05" value="1">
+      </label>
+      <label class="slider-row">
+        <span data-i18n="brightness">luminosità</span>
+        <input id="brightness" type="range" min="0.2" max="2" step="0.05" value="1">
+      </label>
+    </section>
+    <section class="dash-group" id="filters">
+      <label class="slider-row">
+        <span data-i18n="filterMethod">metodo scoperta</span>
+        <select id="f-method"></select>
+      </label>
+      <label class="slider-row">
+        <span data-i18n="filterDist">distanza max</span>
+        <input id="f-dist" type="range" min="1" max="3.6" step="0.05" value="3.6">
+        <output id="f-dist-out">∞</output>
+      </label>
+    </section>
+    <section class="dash-group" id="toggles">
+      <label><input type="checkbox" id="tg-orbits" checked><span data-i18n="orbits">orbite</span></label>
+      <label><input type="checkbox" id="tg-names" checked><span data-i18n="names">nomi</span></label>
+      <label><input type="checkbox" id="tg-constellations" checked><span data-i18n="constellations">costellazioni</span></label>
+      <label><input type="checkbox" id="tg-constnames"><span data-i18n="constNames">nomi costellazioni</span></label>
+      <label><input type="checkbox" id="tg-fullcatalog"><span data-i18n="fullCatalog">catalogo completo</span></label>
+    </section>
+  </div>
+</footer>
+
+<div id="pov-exit" hidden>
+  <button id="btn-pov-exit" class="chip">✕ <span data-i18n="exitPov">esci dalla vista</span></button>
+  <p id="pov-caption"></p>
+</div>
+
+<div id="hint" data-i18n="hint">trascina per ruotare · rotella per zoom · clic su un corpo per la scheda</div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

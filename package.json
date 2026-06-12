@@ -1,0 +1,26 @@
+{
+  "name": "ifacgalaxy",
+  "version": "0.1.0",
+  "description": "Simulatore 3D interattivo di esopianeti — Interactive 3D exoplanet simulator",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "data:exoplanets": "node tools/fetch-exoplanets.mjs",
+    "data:stars": "node tools/build-stars.mjs",
+    "data:constellations": "node tools/build-constellations.mjs",
+    "data:build": "npm run data:exoplanets && npm run data:stars && npm run data:constellations"
+  },
+  "dependencies": {
+    "three": "^0.184.0"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.1.0",
+    "vite": "^8.0.16",
+    "vite-plugin-singlefile": "^2.3.3",
+    "vitest": "^4.1.8"
+  }
+}
