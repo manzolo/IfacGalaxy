@@ -267,7 +267,10 @@ function setupUI() {
   $("btn-pov-exit").addEventListener("click", () => exitPov(true));
   $("lang-it").addEventListener("click", () => setLang("it"));
   $("lang-en").addEventListener("click", () => setLang("en"));
-  $("dash-toggle").addEventListener("click", () => $("dashboard").classList.toggle("collapsed"));
+  $("dash-toggle").addEventListener("click", () => {
+    const collapsed = $("dashboard").classList.toggle("collapsed");
+    $("dash-toggle").textContent = collapsed ? "⚙ ▴" : "▾";
+  });
 
   // tempo
   const speedSlider = $("time-speed"), speedOut = $("time-speed-out");
