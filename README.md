@@ -4,6 +4,8 @@
 
 [English version](README.en.md)
 
+**Demo live:** [manzolo.github.io/IfacGalaxy](https://manzolo.github.io/IfacGalaxy/)
+
 Naviga in 3D tra i sistemi esoplanetari reali del catalogo NASA, dalle orbite del
 Sistema Solare fino a Kepler-90 a 2.767 anni luce. Tutte le stelle, le distanze e
 le orbite sono ai valori reali: ti sposti in un **mondo continuo** dove 1 unità =

@@ -4,6 +4,8 @@
 
 [Versione italiana](README.md)
 
+**Live demo:** [manzolo.github.io/IfacGalaxy](https://manzolo.github.io/IfacGalaxy/)
+
 Fly in 3D through real exoplanetary systems from the NASA catalog, from the
 orbits of the Solar System out to Kepler-90, 2,767 light-years away. Every star,
 distance and orbit is at its real value: you move through a **continuous world**
