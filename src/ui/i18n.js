@@ -41,6 +41,8 @@ const DICT = {
   plRadius: { it: "raggio", en: "radius" },
   plMass: { it: "massa", en: "mass" },
   eqTemp: { it: "temp. di equilibrio", en: "equilibrium temp." },
+  appMag: { it: "magnitudine apparente", en: "apparent magnitude" },
+  noExoplanets: { it: "Nessun esopianeta noto in questo catalogo.", en: "No known exoplanets in this catalog." },
   method: { it: "metodo di scoperta", en: "discovery method" },
   year: { it: "anno di scoperta", en: "discovery year" },
   hzBadge: { it: "zona abitabile", en: "habitable zone" },

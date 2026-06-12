@@ -2,7 +2,7 @@
 // Mondo continuo: 1 unità scena = 1 UA, floating origin sul sistema selezionato.
 import * as THREE from "three";
 import { SimClock } from "./physics/time.js";
-import { sunMagnitudeFrom, LY_PER_PC, AU_PER_PC } from "./physics/coords.js";
+import { sunMagnitudeFrom, LY_PER_PC, AU_PER_PC, DEG } from "./physics/coords.js";
 import { loadCurated, loadFull, loadStars, loadConstellations } from "./data/catalog.js";
 import { makeStarMaterial, buildStarfield, buildSunPoint } from "./scene/starfield.js";
 import { buildConstellationLines, constellationLabelAnchors } from "./scene/constellations.js";
@@ -10,8 +10,9 @@ import { GalaxyPoints } from "./scene/galaxypoints.js";
 import { SystemView } from "./scene/systemview.js";
 import { CameraRig } from "./camera/rig.js";
 import { LabelLayer } from "./ui/labels.js";
-import { pickScreen } from "./ui/picking.js";
-import { showSystemCard, showPlanetCard, hideCard } from "./ui/infocard.js";
+import { pickScreen, pickScreenIndex } from "./ui/picking.js";
+import { showSystemCard, showPlanetCard, showStarCard, hideCard } from "./ui/infocard.js";
+import { bvToKelvin } from "./scene/color.js";
 import { Search } from "./ui/search.js";
 import { t, getLang, setLang, onLangChange, applyStatic, tMethod } from "./ui/i18n.js";
 
@@ -49,6 +50,7 @@ let followPlanet = null;       // indice pianeta seguito dalla camera
 let povState = null;           // { index, mesh }
 let origin = { x: 0, y: 0, z: 0 };
 let starMat, sunPoint, constLines, constAnchors = [];
+let hygStars, hygConsts, starPoints; // catalogo HYG di sfondo, per il picking
 const galaxy = new GalaxyPoints();
 let fullLoading = false;
 
@@ -174,6 +176,35 @@ function exitPov(flyBack = true) {
 }
 
 // ---------------------------------------------------------------- picking --
+// costellazione di appartenenza: confronto RA/Dec con i vertici delle linee
+let constNameById = null;
+function constellationOf(ra, dec) {
+  if (!hygConsts) return null;
+  constNameById ??= new Map(hygConsts.labels.map((l) => [l.id, l.name]));
+  const cosd = Math.cos(dec * DEG);
+  for (const c of hygConsts.constellations) {
+    for (const line of c.lines) {
+      for (const v of line) {
+        let dra = Math.abs(v[0] - ra);
+        if (dra > 180) dra = 360 - dra;
+        if (dra * cosd < 0.1 && Math.abs(v[1] - dec) < 0.1) return constNameById.get(c.id) || c.id;
+      }
+    }
+  }
+  return null;
+}
+
+function hygStarInfo(i) {
+  return {
+    name: hygStars.names?.[i] || null,
+    hip: hygStars.hip[i],
+    mag: hygStars.mag[i],
+    distPc: hygStars.dist[i],
+    teff: hygStars.ci[i] != null ? bvToKelvin(hygStars.ci[i]) : null,
+    constellation: constellationOf(hygStars.ra[i], hygStars.dec[i]),
+  };
+}
+
 function setupPicking() {
   let downX = 0, downY = 0, moved = false;
   canvas.addEventListener("pointerdown", (e) => { downX = e.clientX; downY = e.clientY; moved = false; });
@@ -200,11 +231,18 @@ function setupPicking() {
       });
     }
     const hit = pickScreen(candidates, camera, e.clientX, e.clientY, w, h);
-    if (!hit) return;
-    const r = hit.ref;
-    if (r.kind === "system") focusSystem(r.system);
-    else if (r.kind === "star") showSystemCard(r.system, cardHandlers(r.system));
-    else focusPlanet(r.index);
+    if (hit) {
+      const r = hit.ref;
+      if (r.kind === "system") focusSystem(r.system);
+      else if (r.kind === "star") showSystemCard(r.system, cardHandlers(r.system));
+      else focusPlanet(r.index);
+      return;
+    }
+    // priorità bassa: stelle di sfondo HYG solo se nessun sistema/pianeta colpito
+    const si = pickScreenIndex(
+      starPoints.geometry.attributes.position.array, wp, camera, e.clientX, e.clientY, w, h, 9,
+    );
+    if (si >= 0) showStarCard(hygStarInfo(si));
   });
 }
 
@@ -448,8 +486,11 @@ async function start() {
   ]);
   systems = curated;
 
+  hygStars = stars;
+  hygConsts = consts;
   starMat = makeStarMaterial();
-  worldGroup.add(buildStarfield(stars, starMat));
+  starPoints = buildStarfield(stars, starMat);
+  worldGroup.add(starPoints);
   sunPoint = buildSunPoint(starMat);
   worldGroup.add(sunPoint);
   constLines = buildConstellationLines(consts);

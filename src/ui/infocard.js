@@ -51,6 +51,22 @@ export function showSystemCard(sys, handlers) {
   body().querySelector("#card-focus").addEventListener("click", () => handlers.onFocus());
 }
 
+// scheda ridotta per le stelle di sfondo (catalogo HYG, nessun pianeta da visitare)
+export function showStarCard(star) {
+  const distLy = star.distPc * LY_PER_PC;
+  body().innerHTML = `
+    <h2>${esc(star.name || `HIP ${star.hip}`)}</h2>
+    <h3>${t("star")}${star.constellation ? " · " + esc(star.constellation) : ""}</h3>
+    <table>
+      ${row(t("distance"), `${fmt(distLy, 1)} ${t("ly")} · ${fmt(star.distPc, 1)} pc`)}
+      ${row(t("appMag"), fmt(star.mag, 1))}
+      ${row(t("temperature"), star.teff ? `~${fmt(star.teff, 0)} K` : null)}
+      ${star.name ? row("HIP", star.hip) : ""}
+    </table>
+    <p class="desc">${t("noExoplanets")}</p>`;
+  card().hidden = false;
+}
+
 // confronto dimensioni pianeta vs Terra (SVG inline)
 function sizeCompareSVG(radiusE) {
   const maxR = Math.max(radiusE, 1);
