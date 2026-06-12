@@ -59,6 +59,11 @@ Stars recompute their apparent magnitude **from the camera position** in the
 shader: approach a system and its neighborhood lights up while the Sun fades
 behind you.
 
+## 👥 Credits
+
+From an idea by **Massimo Bianchini**, with the help of **Moreno Comelli**.
+Technical implementation: **Andrea Manzi** ([manzolo](https://github.com/manzolo)).
+
 ## 📚 Data sources
 
 See [NOTICE.md](NOTICE.md). In short: NASA Exoplanet Archive (pscomppars), HYG

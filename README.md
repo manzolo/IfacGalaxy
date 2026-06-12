@@ -60,6 +60,11 @@ Le stelle ricalcolano la magnitudine apparente **dalla posizione della camera**
 nello shader: avvicinandoti a un sistema le sue stelle vicine si accendono, e il
 Sole sbiadisce alle spalle.
 
+## 👥 Crediti
+
+Da un'idea di **Massimo Bianchini**, con l'aiuto di **Moreno Comelli**.
+Realizzazione tecnica: **Andrea Manzi** ([manzolo](https://github.com/manzolo)).
+
 ## 📚 Fonti dati
 
 Vedi [NOTICE.md](NOTICE.md). In sintesi: NASA Exoplanet Archive (pscomppars),
