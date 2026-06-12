@@ -42,7 +42,7 @@ const sim = new SimClock();
 const settings = {
   sizeScale: 1, compression: 1, brightness: 1,
   orbits: true, names: true, constellations: true, constNames: false,
-  filterMethod: "", filterMaxPc: Infinity,
+  filterMethod: "", filterMaxPc: Infinity, fullCatalog: false,
 };
 let systems = [];
 let focused = null;
@@ -53,6 +53,10 @@ let starMat, sunPoint, constLines, constAnchors = [];
 let hygStars, hygConsts, starPoints; // catalogo HYG di sfondo, per il picking
 const galaxy = new GalaxyPoints();
 let fullLoading = false;
+let fullLoaded = false;
+
+// sistemi attivi secondo il toggle "catalogo completo"
+const activeSystems = () => (settings.fullCatalog ? systems : systems.filter((s) => s.curated));
 
 function reorigin(p) {
   const delta = new THREE.Vector3(origin.x - p.x, origin.y - p.y, origin.z - p.z);
@@ -257,7 +261,7 @@ function fmtSpeed(dps) {
 function populateMethodFilter() {
   const sel = document.getElementById("f-method");
   const methods = new Set();
-  for (const s of systems) for (const p of s.planets) if (p.method) methods.add(p.method);
+  for (const s of activeSystems()) for (const p of s.planets) if (p.method) methods.add(p.method);
   const cur = sel.value;
   sel.innerHTML = `<option value="">${t("allMethods")}</option>` +
     [...methods].sort().map((m) => `<option value="${m}">${tMethod(m)}</option>`).join("");
@@ -265,7 +269,7 @@ function populateMethodFilter() {
 }
 
 async function loadFullCatalog() {
-  if (fullLoading) return;
+  if (fullLoaded || fullLoading) return;
   fullLoading = true;
   const hint = document.getElementById("hint");
   hint.textContent = t("loadingFull");
@@ -273,13 +277,22 @@ async function loadFullCatalog() {
   try {
     const extra = await loadFull(systems);
     systems = systems.concat(extra);
-    galaxy.setSystems(systems);
-    refreshGalaxyVisibility();
-    search.setSystems(systems);
-    populateMethodFilter();
+    fullLoaded = true;
   } finally {
+    fullLoading = false;
     hint.classList.add("fade");
   }
+}
+
+// attiva/disattiva il catalogo completo e riallinea galassia, ricerca e filtri
+async function setFullCatalog(on) {
+  settings.fullCatalog = on;
+  if (on) await loadFullCatalog();
+  const active = activeSystems();
+  galaxy.setSystems(active);
+  refreshGalaxyVisibility();
+  search.setSystems(active);
+  populateMethodFilter();
 }
 
 let search;
@@ -287,13 +300,13 @@ function setupUI() {
   const $ = (id) => document.getElementById(id);
 
   search = new Search((hit) => {
-    const sys = systems[hit.si];
+    const sys = activeSystems()[hit.si];
     if (hit.kind === "planet") {
       focusSystem(sys, { card: false });
       focusPlanet(hit.pi);
     } else focusSystem(sys);
   });
-  search.setSystems(systems);
+  search.setSystems(activeSystems());
 
   $("btn-galaxy").addEventListener("click", backToGalaxy);
   $("btn-home").addEventListener("click", () => focusSystem(systems[0], { card: false }));
@@ -360,9 +373,7 @@ function setupUI() {
     constLines.visible = settings.constellations;
   });
   $("tg-constnames").addEventListener("change", (e) => { settings.constNames = e.target.checked; });
-  $("tg-fullcatalog").addEventListener("change", (e) => {
-    if (e.target.checked) loadFullCatalog();
-  });
+  $("tg-fullcatalog").addEventListener("change", (e) => { setFullCatalog(e.target.checked); });
 
   // filtri
   $("f-method").addEventListener("change", (e) => {
@@ -380,7 +391,7 @@ function setupUI() {
 
   onLangChange(() => {
     hideCard();
-    search.setSystems(systems);
+    search.setSystems(activeSystems());
     populateMethodFilter();
     setContext();
     applySpeed();
@@ -520,8 +531,8 @@ async function start() {
   if (slug) {
     let hit = systems.find((s) => s.slug === slug);
     if (!hit) {
-      await loadFullCatalog();
       document.getElementById("tg-fullcatalog").checked = true;
+      await setFullCatalog(true);
       hit = systems.find((s) => s.slug === slug);
     }
     if (hit) target = hit;
@@ -538,6 +549,7 @@ async function start() {
   window.__ifac = {
     get systems() { return systems; },
     get focused() { return focused; },
+    galaxy,
     focusSystem, focusPlanet, enterPov, exitPov, backToGalaxy, rig, sim,
   };
 }
