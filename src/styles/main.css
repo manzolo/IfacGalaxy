@@ -229,10 +229,17 @@ input[type="date"] {
   #dashboard { right: 12px; bottom: 52px; }
   /* da chiusa torna in basso come chip compatto, accanto a Fonti·licenze */
   #dashboard.collapsed { bottom: 12px; right: auto; }
-  #dash-content { max-height: 38vh; overflow-y: auto; overflow-x: hidden; }
+  /* il pannello cresce fin quasi al contesto sistema prima di scorrere */
+  #dash-content { max-height: calc(100vh - 240px); overflow-y: auto; overflow-x: hidden; gap: 12px; }
   .dash-group { min-width: 100%; }
   .slider-row { flex-wrap: wrap; }
+  .slider-row span { min-width: 0; }
   input[type="range"] { min-width: 60px; }
+  #btn-pause { align-self: flex-start; padding: 6px 22px; }
+  /* toggle su due colonne con bersagli touch comodi */
+  #toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 12px; }
+  #toggles label { padding: 7px 0; font-size: 12px; }
+  #toggles input { width: 18px; height: 18px; }
   #hint { display: none; }
   .open-sources { right: 10px; bottom: 10px; }
 }
