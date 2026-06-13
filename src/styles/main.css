@@ -85,7 +85,7 @@ input, output { font-family: inherit; }
 #nav-controls {
   position: fixed; left: 14px; top: 46%; transform: translateY(-50%); z-index: 11;
   display: flex; flex-direction: column; align-items: center; gap: 12px;
-  pointer-events: none;
+  pointer-events: none; transition: opacity 0.15s;
 }
 #tilt-pad {
   display: grid; grid-template-columns: repeat(3, 42px); grid-template-rows: repeat(3, 42px);
@@ -276,6 +276,12 @@ input[type="date"] {
   .open-sources { right: 10px; bottom: 10px; }
   /* navigazione: nella fascia libera tra ricerca e dashboard, non al centro */
   #nav-controls { top: 182px; transform: none; gap: 10px; }
+  /* scheda e dashboard hanno priorità: evita sovrapposizioni dei comandi */
+  #infocard:not([hidden]) ~ #nav-controls,
+  #dashboard:not(.collapsed) ~ #nav-controls {
+    visibility: hidden;
+    opacity: 0;
+  }
   #tilt-pad { grid-template-columns: repeat(3, 38px); grid-template-rows: repeat(3, 38px); }
   .nav-btn { width: 38px; height: 38px; }
 }
