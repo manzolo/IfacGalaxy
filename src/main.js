@@ -49,6 +49,7 @@ let focused = null;
 let followPlanet = null;       // indice pianeta seguito dalla camera
 let povState = null;           // { index, mesh }
 let origin = { x: 0, y: 0, z: 0 };
+let inGalaxy = false;          // camera ritirata nella vista galattica
 let starMat, sunPoint, constLines, constAnchors = [];
 let hygStars, hygConsts, starPoints; // catalogo HYG di sfondo, per il picking
 const galaxy = new GalaxyPoints();
@@ -83,7 +84,9 @@ function setContext() {
     ? `${t("system")}: <b>${focused.isSun ? t("solarSystem") : focused.label}</b> · ${
         focused.isSun ? "" : `${(focused.distPc * LY_PER_PC).toFixed(0)} ${t("ly")}`}`
     : "";
-  document.getElementById("btn-home").hidden = !focused || focused.isSun;
+  // "☉ Sole" è disponibile ogni volta che non sei nel Sistema Solare, vista
+  // galattica compresa (lì anche se il focus è ancora il Sole serve un rientro)
+  document.getElementById("btn-home").hidden = !inGalaxy && (!focused || focused.isSun);
 }
 
 function setURL() {
@@ -101,6 +104,7 @@ function focusSystem(sys, { fly = true, card = true } = {}) {
     systemView.setOrbitsVisible(settings.orbits);
     focused = sys;
   }
+  inGalaxy = false;
   sunPoint.visible = !sys.isSun;
   refreshGalaxyVisibility();
   if (fly) rig.flyTo(new THREE.Vector3(0, 0, 0), Math.max(systemView.span * 3.4, 0.05));
@@ -121,7 +125,9 @@ function focusPlanet(index, { fly = true } = {}) {
 function backToGalaxy() {
   exitPov(false);
   followPlanet = null;
+  inGalaxy = true;
   hideCard();
+  setContext();
   rig.flyTo(new THREE.Vector3(0, 0, 0), GALAXY_DIST);
 }
 

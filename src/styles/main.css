@@ -216,7 +216,8 @@ input[type="date"] {
 @media (max-width: 700px) {
   #topbar { flex-wrap: wrap; }
   #brand { order: 1; }
-  #topright { order: 2; margin-left: auto; }
+  #topright { order: 2; margin-left: auto; flex-wrap: wrap; justify-content: flex-end; row-gap: 6px; }
+  #topright .chip { padding: 6px 10px; }
   #searchbox { order: 3; flex-basis: 100%; max-width: none; }
   #subtitle { display: none; }
   /* sotto la barra superiore: su mobile occupa tre righe (~150px) */
