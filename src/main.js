@@ -339,10 +339,33 @@ function setupUI() {
   };
   holdRepeat("zoom-in", () => rig.zoomStep(true));
   holdRepeat("zoom-out", () => rig.zoomStep(false));
-  holdRepeat("rot-left", () => rig.orbitStep("yaw", -1));
-  holdRepeat("rot-right", () => rig.orbitStep("yaw", 1));
-  holdRepeat("rot-up", () => rig.orbitStep("pitch", 1));
-  holdRepeat("rot-down", () => rig.orbitStep("pitch", -1));
+
+  // le 4 frecce ruotano/inclinano oppure spostano (pan) secondo la modalità,
+  // scelta col pulsante al centro del d-pad; in POV restano sempre rotazione
+  let navMode = "rotate";
+  const arrow = (rotAxis, rotDir, panAxis, panDir) => () => {
+    if (navMode === "pan" && rig.mode !== "pov") rig.panStep(panAxis, panDir);
+    else rig.orbitStep(rotAxis, rotDir);
+  };
+  holdRepeat("rot-left", arrow("yaw", -1, "x", -1));
+  holdRepeat("rot-right", arrow("yaw", 1, "x", 1));
+  holdRepeat("rot-up", arrow("pitch", 1, "y", 1));
+  holdRepeat("rot-down", arrow("pitch", -1, "y", -1));
+  const navModeBtn = $("nav-mode");
+  const applyNavMode = () => {
+    const pan = navMode === "pan";
+    navModeBtn.textContent = pan ? "✥" : "⟳";
+    const title = pan ? "Modalità sposta — tocca per ruotare" : "Modalità ruota — tocca per spostare";
+    navModeBtn.title = title;
+    navModeBtn.setAttribute("aria-label", title);
+    navModeBtn.classList.toggle("active", pan);
+    $("tilt-pad").classList.toggle("pan", pan);
+  };
+  navModeBtn.addEventListener("click", () => {
+    navMode = navMode === "pan" ? "rotate" : "pan";
+    applyNavMode();
+  });
+  applyNavMode();
   $("btn-home").addEventListener("click", () => focusSystem(systems[0], { card: false }));
   const sources = $("sources-dialog");
   $("open-sources").addEventListener("click", () => sources.showModal());

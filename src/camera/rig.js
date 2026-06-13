@@ -146,6 +146,18 @@ export class CameraRig {
     this.camera.lookAt(t);
   }
 
+  // pan a passo discreto per i pulsanti a schermo: sposta camera e bersaglio
+  // lungo gli assi dello schermo, passo proporzionale alla distanza. Non si
+  // applica in POV (lì le frecce restano sulla rotazione dello sguardo).
+  panStep(axis, dir) {
+    if (this.transition || this.mode === "pov") return;
+    const step = 0.12 * this.distance;
+    const v = (axis === "x" ? new THREE.Vector3(1, 0, 0) : new THREE.Vector3(0, 1, 0))
+      .applyQuaternion(this.camera.quaternion).multiplyScalar(dir * step);
+    this.camera.position.add(v);
+    this.controls.target.add(v);
+  }
+
   update(dt) {
     if (this.transition) {
       const tr = this.transition;

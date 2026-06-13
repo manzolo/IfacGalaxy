@@ -93,6 +93,10 @@ input, output { font-family: inherit; }
 }
 #rot-up { grid-area: 1 / 2; } #rot-left { grid-area: 2 / 1; }
 #rot-right { grid-area: 2 / 3; } #rot-down { grid-area: 3 / 2; }
+#nav-mode { grid-area: 2 / 2; font-size: 16px; }
+/* in modalità "sposta" le frecce cambiano funzione: feedback ambra */
+.nav-btn.active { color: var(--amber); border-color: rgba(255,179,71,0.5); }
+#tilt-pad.pan .nav-btn:not(#nav-mode) { color: var(--amber); border-color: rgba(255,179,71,0.4); }
 #zoom-controls { display: flex; flex-direction: column; gap: 8px; }
 .nav-btn {
   pointer-events: auto; width: 42px; height: 42px;
