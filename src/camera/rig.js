@@ -99,6 +99,26 @@ export class CameraRig {
     }, { passive: false });
   }
 
+  // zoom a passo discreto per i pulsanti a schermo (accessibilità: alternativa
+  // alla rotellina). In orbita avvicina/allontana dal target rispettando i
+  // limiti; in POV stringe/allarga il campo visivo come fa la rotellina lì.
+  zoomStep(zoomIn) {
+    if (this.transition) return;
+    if (this.mode === "pov") {
+      this.camera.fov = THREE.MathUtils.clamp(this.camera.fov * (zoomIn ? 0.93 : 1.08), 12, 100);
+      this.camera.updateProjectionMatrix();
+      return;
+    }
+    const t = this.controls.target;
+    const offset = this.camera.position.clone().sub(t);
+    const dist = Math.max(offset.length(), 1e-9);
+    const next = THREE.MathUtils.clamp(
+      dist * (zoomIn ? 1 / 1.15 : 1.15),
+      this.controls.minDistance, this.controls.maxDistance,
+    );
+    this.camera.position.copy(t).addScaledVector(offset.divideScalar(dist), next);
+  }
+
   update(dt) {
     if (this.transition) {
       const tr = this.transition;

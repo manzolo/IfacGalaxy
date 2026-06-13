@@ -81,6 +81,24 @@ input, output { font-family: inherit; }
 .chip:hover { border-color: var(--cyan); box-shadow: 0 0 10px var(--cyan-soft); }
 .chip.amber { color: var(--amber); background: var(--amber-soft); border-color: rgba(255,179,71,0.3); }
 
+/* ---- zoom a schermo (accessibilità: alternativa alla rotellina) ---- */
+#zoom-controls {
+  position: fixed; left: 14px; top: 50%; transform: translateY(-50%); z-index: 11;
+  display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+}
+.zoom-btn {
+  pointer-events: auto; width: 48px; height: 48px;
+  font-size: 26px; line-height: 1; font-weight: 600; color: var(--cyan);
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(8px); transition: all 0.12s; touch-action: manipulation;
+  user-select: none;
+}
+.zoom-btn:hover, .zoom-btn:focus-visible {
+  border-color: var(--cyan); box-shadow: 0 0 12px var(--cyan-soft); outline: none;
+}
+.zoom-btn:active { background: var(--cyan-soft); transform: scale(0.94); }
+
 /* ---- scheda informativa ---- */
 #infocard {
   position: fixed; top: 64px; right: 12px; z-index: 11;
@@ -243,4 +261,6 @@ input[type="date"] {
   #toggles input { width: 18px; height: 18px; }
   #hint { display: none; }
   .open-sources { right: 10px; bottom: 10px; }
+  /* zoom: nella fascia libera tra ricerca e dashboard, non al centro verticale */
+  #zoom-controls { top: 188px; transform: none; }
 }

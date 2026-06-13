@@ -323,6 +323,20 @@ function setupUI() {
 
   $("btn-galaxy").addEventListener("click", backToGalaxy);
   $("btn-discover").addEventListener("click", discoverRandom);
+
+  // zoom a schermo: tap singolo (anche da tastiera) un passo, tenuto premuto
+  // ripete in continuo — pensato per chi fatica con la rotellina del mouse
+  const holdZoom = (btn, zoomIn) => {
+    let delay = null, rep = null;
+    const stop = () => { clearTimeout(delay); clearInterval(rep); delay = rep = null; };
+    btn.addEventListener("click", () => rig.zoomStep(zoomIn));
+    btn.addEventListener("pointerdown", () => {
+      delay = setTimeout(() => { rep = setInterval(() => rig.zoomStep(zoomIn), 90); }, 300);
+    });
+    for (const ev of ["pointerup", "pointerleave", "pointercancel"]) btn.addEventListener(ev, stop);
+  };
+  holdZoom($("zoom-in"), true);
+  holdZoom($("zoom-out"), false);
   $("btn-home").addEventListener("click", () => focusSystem(systems[0], { card: false }));
   const sources = $("sources-dialog");
   $("open-sources").addEventListener("click", () => sources.showModal());
