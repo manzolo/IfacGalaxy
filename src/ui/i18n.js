@@ -16,6 +16,7 @@ const DICT = {
   constellations: { it: "costellazioni", en: "constellations" },
   constNames: { it: "nomi costellazioni", en: "constellation names" },
   fullCatalog: { it: "catalogo completo", en: "full catalog" },
+  accessibility: { it: "comandi accessibilità", en: "accessibility controls" },
   exitPov: { it: "esci dalla vista", en: "exit view" },
   sourcesBtn: { it: "Fonti · licenze", en: "Sources · licenses" },
   sourcesTitle: { it: "Fonti, crediti e licenze", en: "Sources, credits and licenses" },

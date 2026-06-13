@@ -408,6 +408,10 @@ function setupUI() {
   });
   $("tg-constnames").addEventListener("change", (e) => { settings.constNames = e.target.checked; });
   $("tg-fullcatalog").addEventListener("change", (e) => { setFullCatalog(e.target.checked); });
+  // mostra/nasconde i comandi di navigazione a schermo (acceso di default)
+  $("tg-accessibility").addEventListener("change", (e) => {
+    $("nav-controls").style.display = e.target.checked ? "flex" : "none";
+  });
 
   // filtri
   $("f-method").addEventListener("change", (e) => {
