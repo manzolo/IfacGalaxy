@@ -324,19 +324,25 @@ function setupUI() {
   $("btn-galaxy").addEventListener("click", backToGalaxy);
   $("btn-discover").addEventListener("click", discoverRandom);
 
-  // zoom a schermo: tap singolo (anche da tastiera) un passo, tenuto premuto
-  // ripete in continuo — pensato per chi fatica con la rotellina del mouse
-  const holdZoom = (btn, zoomIn) => {
+  // navigazione a schermo (zoom + rotazione/inclinazione): tap singolo (anche
+  // da tastiera) un passo, tenuto premuto ripete in continuo — pensato per chi
+  // fatica con la rotellina e con il trascinamento del mouse
+  const holdRepeat = (id, action) => {
+    const btn = $(id);
     let delay = null, rep = null;
     const stop = () => { clearTimeout(delay); clearInterval(rep); delay = rep = null; };
-    btn.addEventListener("click", () => rig.zoomStep(zoomIn));
+    btn.addEventListener("click", action);
     btn.addEventListener("pointerdown", () => {
-      delay = setTimeout(() => { rep = setInterval(() => rig.zoomStep(zoomIn), 90); }, 300);
+      delay = setTimeout(() => { rep = setInterval(action, 90); }, 300);
     });
     for (const ev of ["pointerup", "pointerleave", "pointercancel"]) btn.addEventListener(ev, stop);
   };
-  holdZoom($("zoom-in"), true);
-  holdZoom($("zoom-out"), false);
+  holdRepeat("zoom-in", () => rig.zoomStep(true));
+  holdRepeat("zoom-out", () => rig.zoomStep(false));
+  holdRepeat("rot-left", () => rig.orbitStep("yaw", -1));
+  holdRepeat("rot-right", () => rig.orbitStep("yaw", 1));
+  holdRepeat("rot-up", () => rig.orbitStep("pitch", 1));
+  holdRepeat("rot-down", () => rig.orbitStep("pitch", -1));
   $("btn-home").addEventListener("click", () => focusSystem(systems[0], { card: false }));
   const sources = $("sources-dialog");
   $("open-sources").addEventListener("click", () => sources.showModal());

@@ -119,6 +119,33 @@ export class CameraRig {
     this.camera.position.copy(t).addScaledVector(offset.divideScalar(dist), next);
   }
 
+  // rotazione/inclinazione a passo discreto per il pad direzionale a schermo
+  // (accessibilità: alternativa al trascinamento). axis "yaw" gira attorno al
+  // bersaglio, "pitch" alza/abbassa il punto di vista; in POV muove lo sguardo.
+  orbitStep(axis, dir) {
+    if (this.transition) return;
+    const step = 0.12; // ~7° per passo
+    if (this.mode === "pov" && this.pov) {
+      if (axis === "yaw") this.pov.yaw -= dir * step;
+      else this.pov.pitch = THREE.MathUtils.clamp(this.pov.pitch + dir * step, -1.5, 1.5);
+      return;
+    }
+    const t = this.controls.target;
+    const offset = this.camera.position.clone().sub(t);
+    const sph = new THREE.Spherical().setFromVector3(offset);
+    if (axis === "yaw") {
+      sph.theta += dir * step;
+    } else {
+      const lo = this.controls.minPolarAngle + 1e-3;
+      const hi = this.controls.maxPolarAngle - 1e-3;
+      sph.phi = THREE.MathUtils.clamp(sph.phi - dir * step, lo, hi);
+    }
+    sph.makeSafe();
+    offset.setFromSpherical(sph);
+    this.camera.position.copy(t).add(offset);
+    this.camera.lookAt(t);
+  }
+
   update(dt) {
     if (this.transition) {
       const tr = this.transition;

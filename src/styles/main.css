@@ -81,23 +81,32 @@ input, output { font-family: inherit; }
 .chip:hover { border-color: var(--cyan); box-shadow: 0 0 10px var(--cyan-soft); }
 .chip.amber { color: var(--amber); background: var(--amber-soft); border-color: rgba(255,179,71,0.3); }
 
-/* ---- zoom a schermo (accessibilità: alternativa alla rotellina) ---- */
-#zoom-controls {
-  position: fixed; left: 14px; top: 50%; transform: translateY(-50%); z-index: 11;
-  display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+/* ---- navigazione a schermo (accessibilità: alternativa a rotellina e drag) ---- */
+#nav-controls {
+  position: fixed; left: 14px; top: 46%; transform: translateY(-50%); z-index: 11;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  pointer-events: none;
 }
-.zoom-btn {
-  pointer-events: auto; width: 48px; height: 48px;
-  font-size: 26px; line-height: 1; font-weight: 600; color: var(--cyan);
-  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+#tilt-pad {
+  display: grid; grid-template-columns: repeat(3, 42px); grid-template-rows: repeat(3, 42px);
+  gap: 4px;
+}
+#rot-up { grid-area: 1 / 2; } #rot-left { grid-area: 2 / 1; }
+#rot-right { grid-area: 2 / 3; } #rot-down { grid-area: 3 / 2; }
+#zoom-controls { display: flex; flex-direction: column; gap: 8px; }
+.nav-btn {
+  pointer-events: auto; width: 42px; height: 42px;
+  font-size: 18px; line-height: 1; font-weight: 600; color: var(--cyan);
+  background: var(--panel); border: 1px solid var(--line); border-radius: 11px;
   display: flex; align-items: center; justify-content: center;
   backdrop-filter: blur(8px); transition: all 0.12s; touch-action: manipulation;
   user-select: none;
 }
-.zoom-btn:hover, .zoom-btn:focus-visible {
+#zoom-controls .nav-btn { font-size: 24px; }
+.nav-btn:hover, .nav-btn:focus-visible {
   border-color: var(--cyan); box-shadow: 0 0 12px var(--cyan-soft); outline: none;
 }
-.zoom-btn:active { background: var(--cyan-soft); transform: scale(0.94); }
+.nav-btn:active { background: var(--cyan-soft); transform: scale(0.94); }
 
 /* ---- scheda informativa ---- */
 #infocard {
@@ -261,6 +270,8 @@ input[type="date"] {
   #toggles input { width: 18px; height: 18px; }
   #hint { display: none; }
   .open-sources { right: 10px; bottom: 10px; }
-  /* zoom: nella fascia libera tra ricerca e dashboard, non al centro verticale */
-  #zoom-controls { top: 188px; transform: none; }
+  /* navigazione: nella fascia libera tra ricerca e dashboard, non al centro */
+  #nav-controls { top: 182px; transform: none; gap: 10px; }
+  #tilt-pad { grid-template-columns: repeat(3, 38px); grid-template-rows: repeat(3, 38px); }
+  .nav-btn { width: 38px; height: 38px; }
 }
