@@ -29,6 +29,7 @@
     <button id="btn-home" class="chip amber" data-i18n="backHome" title="Torna al Sistema Solare" hidden>☉ Sole</button>
     <button id="btn-discover" class="chip" data-i18n="discover" title="Esplora un sistema a caso">🎲 Scopri</button>
     <button id="btn-galaxy" class="chip" data-i18n="backGalaxy" title="Vista galattica">⟲ Galassia</button>
+    <button id="btn-help" class="chip" type="button" title="Come si usa" aria-label="Come si usa">?</button>
     <button id="lang-it" class="flag" title="Italiano">🇮🇹</button>
     <button id="lang-en" class="flag" title="English">🇬🇧</button>
   </div>
@@ -114,6 +115,51 @@
 
 <div id="hint" data-i18n="hint">trascina per ruotare · rotella per zoom · clic su un corpo per la scheda</div>
 
+<dialog id="help-dialog" class="sources-dialog">
+  <div class="sources-head">
+    <h2 data-i18n="helpTitle">Come si usa</h2>
+    <button id="close-help" type="button" title="Chiudi" aria-label="chiudi">✕</button>
+  </div>
+  <div class="sources-body">
+    <section data-lang-content="it">
+      <h3>Navigare</h3>
+      <p>Trascina per ruotare, rotella per lo zoom. Se preferisci, a sinistra ci sono i pulsanti a schermo: le frecce ruotano e inclinano la vista, <strong>+</strong> e <strong>−</strong> avvicinano e allontanano. Un tocco = un passo, tieni premuto per muoverti in continuo. Puoi nasconderli dal pannello in basso togliendo «comandi accessibilità».</p>
+      <h3>Selezionare un corpo</h3>
+      <p>Clic su una stella o un pianeta per aprirne la scheda. Clic su un sistema lontano (un puntino luminoso) per volarci dentro.</p>
+      <h3>Cercare</h3>
+      <p>Scrivi nella barra in alto per trovare una stella o un pianeta per nome.</p>
+      <h3>Esplorare a caso</h3>
+      <p><strong>🎲 Scopri</strong> ti porta su un sistema esoplanetario scelto a caso.</p>
+      <h3>Tornare</h3>
+      <p><strong>☉ Sole</strong> riporta al Sistema Solare; <strong>⟲ Galassia</strong> allarga la vista a tutti i sistemi.</p>
+      <h3>Vista da un pianeta</h3>
+      <p>Nella scheda di un pianeta, il pulsante della vista ti mette sulla sua superficie a guardare il cielo; «esci dalla vista» torna in orbita.</p>
+      <h3>Tempo</h3>
+      <p>Metti in pausa, regola la velocità e scegli una data; «oggi» riporta al momento attuale.</p>
+      <h3>Aspetto e filtri</h3>
+      <p>Dal pannello in basso regoli scala dei pianeti, compressione delle orbite e luminosità; mostri o nascondi orbite, nomi e costellazioni; filtri per metodo di scoperta o distanza e attivi il catalogo completo.</p>
+    </section>
+    <section data-lang-content="en" hidden>
+      <h3>Navigating</h3>
+      <p>Drag to rotate, scroll to zoom. If you prefer, the on-screen buttons on the left rotate and tilt the view with the arrows, and zoom in/out with <strong>+</strong> and <strong>−</strong>. One tap = one step, hold to move continuously. You can hide them from the bottom panel by unchecking «accessibility controls».</p>
+      <h3>Selecting a body</h3>
+      <p>Click a star or planet to open its card. Click a distant system (a bright dot) to fly into it.</p>
+      <h3>Searching</h3>
+      <p>Type in the top bar to find a star or planet by name.</p>
+      <h3>Explore at random</h3>
+      <p><strong>🎲 Discover</strong> takes you to a randomly chosen exoplanet system.</p>
+      <h3>Going back</h3>
+      <p><strong>☉ Sun</strong> returns to the Solar System; <strong>⟲ Galaxy</strong> zooms out to all systems.</p>
+      <h3>View from a planet</h3>
+      <p>On a planet's card, the view button places you on its surface looking at the sky; «exit view» returns to orbit.</p>
+      <h3>Time</h3>
+      <p>Pause, adjust the speed and pick a date; «today» jumps back to now.</p>
+      <h3>Appearance and filters</h3>
+      <p>From the bottom panel you adjust planet size, orbit compression and brightness; show or hide orbits, names and constellations; filter by discovery method or distance and enable the full catalog.</p>
+    </section>
+  </div>
+</dialog>
+
 <button id="open-sources" class="open-sources" type="button" data-i18n="sourcesBtn">Fonti · licenze</button>
 <dialog id="sources-dialog" class="sources-dialog">
   <div class="sources-head">
@@ -138,7 +184,7 @@
       <h3>Font e software</h3>
       <p>Michroma e IBM Plex Mono via Google Fonts (Open Font License). Rendering con <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">Three.js</a> (MIT).</p>
       <h3>Privacy</h3>
-      <p>Il progetto non integra analytics, pubblicità o cookie propri: salva nel browser soltanto la lingua scelta. I font sono caricati dai server di Google, ai quali il browser invia una normale richiesta di rete soggetta alla rispettiva informativa.</p>
+      <p>Il progetto non integra analytics, pubblicità o cookie propri: salva nel browser soltanto la lingua scelta e se hai già visto la guida iniziale. I font sono caricati dai server di Google, ai quali il browser invia una normale richiesta di rete soggetta alla rispettiva informativa.</p>
       <h3>Licenza</h3>
       <p>La licenza MIT del repository copre il codice originale e non concede diritti sui materiali di terzi. L'elenco completo è in <a href="https://github.com/manzolo/IfacGalaxy/blob/main/NOTICE.md" target="_blank" rel="noopener noreferrer">NOTICE.md</a>.</p>
     </section>
@@ -159,7 +205,7 @@
       <h3>Fonts and software</h3>
       <p>Michroma and IBM Plex Mono via Google Fonts (Open Font License). Rendered with <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">Three.js</a> (MIT).</p>
       <h3>Privacy</h3>
-      <p>The project includes no analytics, advertising, or first-party cookies: it stores only the selected language in the browser. Fonts are loaded from Google servers, to which the browser sends a normal network request subject to their privacy notice.</p>
+      <p>The project includes no analytics, advertising, or first-party cookies: it stores only the selected language and whether you have already seen the intro guide in the browser. Fonts are loaded from Google servers, to which the browser sends a normal network request subject to their privacy notice.</p>
       <h3>License</h3>
       <p>The repository's MIT license covers original code and does not grant rights to third-party materials. See <a href="https://github.com/manzolo/IfacGalaxy/blob/main/NOTICE.md" target="_blank" rel="noopener noreferrer">NOTICE.md</a> for the complete list.</p>
     </section>

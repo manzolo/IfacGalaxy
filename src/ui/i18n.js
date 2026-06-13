@@ -18,6 +18,7 @@ const DICT = {
   fullCatalog: { it: "catalogo completo", en: "full catalog" },
   accessibility: { it: "comandi accessibilità", en: "accessibility controls" },
   exitPov: { it: "esci dalla vista", en: "exit view" },
+  helpTitle: { it: "Come si usa", en: "How to use" },
   sourcesBtn: { it: "Fonti · licenze", en: "Sources · licenses" },
   sourcesTitle: { it: "Fonti, crediti e licenze", en: "Sources, credits and licenses" },
   filterMethod: { it: "metodo scoperta", en: "discovery method" },

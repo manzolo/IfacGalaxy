@@ -350,6 +350,16 @@ function setupUI() {
   sources.addEventListener("click", (e) => {
     if (e.target === sources) sources.close();
   });
+
+  const help = $("help-dialog");
+  $("btn-help").addEventListener("click", () => help.showModal());
+  $("close-help").addEventListener("click", () => help.close());
+  help.addEventListener("click", (e) => { if (e.target === help) help.close(); });
+  // alla prima visita la guida si apre da sola (poi ricordiamo di averla mostrata)
+  if (!localStorage.getItem("ifacgalaxy-guida-vista")) {
+    help.showModal();
+    localStorage.setItem("ifacgalaxy-guida-vista", "1");
+  }
   $("card-close").addEventListener("click", hideCard);
   $("btn-pov-exit").addEventListener("click", () => exitPov(true));
   $("lang-it").addEventListener("click", () => setLang("it"));
