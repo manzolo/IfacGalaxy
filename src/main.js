@@ -251,7 +251,7 @@ function setupPicking() {
     const hit = pickScreen(candidates, camera, e.clientX, e.clientY, w, h);
     if (hit) {
       const r = hit.ref;
-      if (r.kind === "system") focusSystem(r.system);
+      if (r.kind === "system") showSystemCard(r.system, cardHandlers(r.system));
       else if (r.kind === "star") showSystemCard(r.system, cardHandlers(r.system));
       else focusPlanet(r.index);
       return;
