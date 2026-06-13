@@ -4,6 +4,7 @@ const DICT = {
   searchPlaceholder: { it: "Cerca stella o pianeta…", en: "Search star or planet…" },
   backGalaxy: { it: "⟲ Galassia", en: "⟲ Galaxy" },
   backHome: { it: "☉ Sole", en: "☉ Sun" },
+  discover: { it: "🎲 Scopri", en: "🎲 Discover" },
   timeSpeed: { it: "velocità tempo", en: "time speed" },
   epoch: { it: "data", en: "date" },
   now: { it: "oggi", en: "today" },

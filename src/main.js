@@ -125,6 +125,13 @@ function backToGalaxy() {
   rig.flyTo(new THREE.Vector3(0, 0, 0), GALAXY_DIST);
 }
 
+// vola su un sistema a caso (escluso il Sole e quello attuale) per esplorare
+function discoverRandom() {
+  const pool = activeSystems().filter((s) => !s.isSun && s !== focused);
+  if (!pool.length) return;
+  focusSystem(pool[(Math.random() * pool.length) | 0]);
+}
+
 function cardHandlers(sys) {
   return {
     onFocus: () => focusSystem(sys),
@@ -309,6 +316,7 @@ function setupUI() {
   search.setSystems(activeSystems());
 
   $("btn-galaxy").addEventListener("click", backToGalaxy);
+  $("btn-discover").addEventListener("click", discoverRandom);
   $("btn-home").addEventListener("click", () => focusSystem(systems[0], { card: false }));
   const sources = $("sources-dialog");
   $("open-sources").addEventListener("click", () => sources.showModal());
@@ -550,7 +558,7 @@ async function start() {
     get systems() { return systems; },
     get focused() { return focused; },
     galaxy,
-    focusSystem, focusPlanet, enterPov, exitPov, backToGalaxy, rig, sim,
+    focusSystem, focusPlanet, enterPov, exitPov, backToGalaxy, discoverRandom, rig, sim,
   };
 }
 
