@@ -142,7 +142,8 @@ export class SystemView {
     this.group.add(this.ambient);
 
     // pianeti + orbite
-    for (const p of sys.planets) {
+    const caps = this._neighborCaps(sys);
+    sys.planets.forEach((p, i) => {
       const [kind, color] = planetLook(p);
       const mat = new THREE.MeshStandardMaterial({
         map: proceduralTexture(kind, color),
@@ -150,13 +151,30 @@ export class SystemView {
         metalness: 0,
       });
       const mesh = new THREE.Mesh(sphereGeo, mat);
-      mesh.scale.setScalar(this._planetVisualRadius(p));
+      mesh.scale.setScalar(this._planetVisualRadius(p, caps[i]));
       mesh.userData = { kind: "planet", planet: p, system: sys };
       this.group.add(mesh);
       this.planetMeshes.push(mesh);
       this.orbitLines.push(this._buildOrbit(p));
-    }
+    });
     return this.group;
+  }
+
+  // raggio massimo per ogni pianeta perché le orbite adiacenti (e la stella al
+  // centro) non si compenetrino: nei sistemi a grande estensione radiale come il
+  // Sistema Solare i pianeti interni sarebbero altrimenti enormi e sovrapposti
+  _neighborCaps(sys) {
+    const items = sys.planets
+      .map((p, i) => ({ i, a: Math.pow(p.a, this.compression) }))
+      .sort((x, y) => x.a - y.a);
+    const caps = new Array(sys.planets.length);
+    for (let k = 0; k < items.length; k++) {
+      const a = items[k].a;
+      const inner = k > 0 ? a - items[k - 1].a : a;          // vicino interno o stella
+      const outer = k < items.length - 1 ? items[k + 1].a - a : Infinity;
+      caps[items[k].i] = Math.min(inner, outer) * 0.42;
+    }
+    return caps;
   }
 
   _starVisualRadius(sys) {
@@ -165,10 +183,10 @@ export class SystemView {
     return Math.min(Math.max(real, this.span * 0.035), innermost * 0.55);
   }
 
-  _planetVisualRadius(p) {
+  _planetVisualRadius(p, cap = Infinity) {
     const real = p.radiusE * R_EARTH_AU;
     const legible = this.span * (0.006 + 0.02 * Math.log10(1 + p.radiusE) / Math.log10(13)) * this.sizeScale;
-    return Math.max(real, legible);
+    return Math.max(real, Math.min(legible, cap));
   }
 
   // posizione orbitale reale → compressa radialmente → orientata nel frame scena
