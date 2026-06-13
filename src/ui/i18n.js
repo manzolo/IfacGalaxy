@@ -25,8 +25,8 @@ const DICT = {
   filterDist: { it: "distanza max", en: "max distance" },
   allMethods: { it: "tutti", en: "all" },
   hint: {
-    it: "trascina per ruotare · rotella per zoom · clic su un corpo per la scheda",
-    en: "drag to rotate · scroll to zoom · click a body for its card",
+    it: "trascina per ruotare · Ctrl+trascina per spostare · rotella per zoom · clic su un corpo per la scheda",
+    en: "drag to rotate · Ctrl+drag to pan · scroll to zoom · click a body for its card",
   },
   // schede
   star: { it: "stella", en: "star" },
